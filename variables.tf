@@ -19,3 +19,19 @@ variable "ssh_cidr" {
     error_message = "ssh_cidr must be a valid CIDR and must not be 0.0.0.0/0."
   }
 }
+
+variable "ssh_public_key" {
+  description = "Public SSH key for the target instance. Set in terraform.tfvars (gitignored)."
+  type        = string
+
+  validation {
+    condition     = startswith(var.ssh_public_key, "ssh-ed25519 ")
+    error_message = "ssh_public_key must be an ssh-ed25519 public key."
+  }
+}
+
+variable "instance_type" {
+  description = "EC2 instance type for the dev target."
+  type        = string
+  default     = "t3.micro"
+}
