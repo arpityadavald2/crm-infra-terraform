@@ -9,3 +9,8 @@ output "caller_arn" {
   value       = data.aws_caller_identity.current.arn
   sensitive   = true
 }
+
+output "security_group_id" {
+  description = "ID of the dev target security group."
+  value       = aws_security_group.dev_target.id
+}
