@@ -9,3 +9,13 @@ variable "project_name" {
   type        = string
   default     = "crm"
 }
+
+variable "ssh_cidr" {
+  description = "CIDR allowed to SSH in, e.g. 203.0.113.10/32. Set in terraform.tfvars (gitignored)."
+  type        = string
+
+  validation {
+    condition     = can(cidrhost(var.ssh_cidr, 0)) && var.ssh_cidr != "0.0.0.0/0"
+    error_message = "ssh_cidr must be a valid CIDR and must not be 0.0.0.0/0."
+  }
+}
